@@ -1,0 +1,33 @@
+#服务器
+server:
+  port: 8888
+  servlet:
+    context-path: /stockforecast
+
+spring:
+  datasource:
+    jdbc-url: jdbc:mysql://localhost:3306/stock_forecast?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+
+debug:
+  true
+
+#redis:
+##格式：redis://:[密码]@[服务器地址]:[端口]/[db index]
+#  uri: redis://:12345@127.0.0.1:6379/0
+#  host: 222.73.239.138
+#  port: 30162
+#  timeout: 3000
+#  password: china317
+#  database: 6
+#  pool:
+##最大分配的对象数
+#    maxTotal: 200
+##最大能够保持idel状态的对象数
+#    maxIdle: 50
+#    minIdle: 10
+#    maxWaitMillis: 20000
+##当池内没有返回对象时，最大等待时间
+#    maxWait: 300
