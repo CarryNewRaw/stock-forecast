@@ -29,14 +29,18 @@ public class StockQuoteService {
         String date = DateUtils.getFormatDateStr(calendar.getTime(), DateUtils.DATE_PATTERN_);
         String year = date.substring(0, 4);
 
-        List<StockInfo> stockInfoList = stockInfoMapper.selectByDate(Integer.parseInt(date));
-        for(StockInfo stockInfo : stockInfoList) {
-            String scode = stockInfo.getScode();
-            String mktcode = stockInfo.getMktcode();
-            String qqResult = stockForecastClient.getTecentStockQuoteDaily(year, scode, mktcode);
-            if(StringUtils.isNotEmpty(qqResult)) {
-                System.out.println(qqResult);
+        List<StockInfo> stockInfoList = stockInfoMapper.selectAll();
+        try {
+            for (StockInfo stockInfo : stockInfoList) {
+                String scode = stockInfo.getScode();
+                String mktcode = stockInfo.getMktcode();
+                String qqResult = stockForecastClient.getTecentStockQuoteDaily(scode, mktcode);
+                if (StringUtils.isNotEmpty(qqResult)) {
+                    System.out.println(qqResult);
+                }
             }
+        } catch (Exception e) {
+            logger.error("", e);
         }
     }
 

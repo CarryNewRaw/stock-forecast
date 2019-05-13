@@ -17,5 +17,5 @@ public interface StockInfoMapper {
 
     int updateByPrimaryKey(StockInfo record);
 
-    List<StockInfo> selectByDate(Integer date);
+    List<StockInfo> selectAll();
 }

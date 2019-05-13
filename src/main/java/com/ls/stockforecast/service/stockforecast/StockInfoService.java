@@ -14,7 +14,7 @@ public class StockInfoService {
     @Autowired
     private StockInfoMapper stockInfoMapper;
 
-    public List<StockInfo> selectByDate(int date) {
-        return stockInfoMapper.selectByDate(date);
+    public List<StockInfo> selectAll() {
+        return stockInfoMapper.selectAll();
     }
 }

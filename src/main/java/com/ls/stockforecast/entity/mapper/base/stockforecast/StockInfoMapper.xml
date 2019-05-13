@@ -126,10 +126,9 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectByDate" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from sf_stock_info
-    where date = #{date,jdbcType=INTEGER}
   </select>
 </mapper>

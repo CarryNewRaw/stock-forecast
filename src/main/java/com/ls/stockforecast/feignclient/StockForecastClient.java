@@ -14,7 +14,7 @@ public interface StockForecastClient {
     @RequestLine("GET flashdata/hushen/daily/{year}/{mktcode}{scode}.js")
     String getTecentStockQuote(@Param("year") String year, @Param("scode") String scode, @Param("mktcode") String mktcode);
 
-    @RequestLine("GET flashdata/hushen/daily/{mktcode}{scode}.js")
-    String getTecentStockQuoteDaily(@Param("year") String year, @Param("scode") String scode, @Param("mktcode") String mktcode);
+    @RequestLine("GET flashdata/hushen/latest/daily/{mktcode}{scode}.js")
+    String getTecentStockQuoteDaily(@Param("scode") String scode, @Param("mktcode") String mktcode);
 
 }

@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="scode" jdbcType="VARCHAR" property="scode" />
     <result column="mktcode" jdbcType="VARCHAR" property="mktcode" />
-    <result column="date" jdbcType="TIMESTAMP" property="date" />
+    <result column="date" jdbcType="INTEGER" property="date" />
     <result column="open" jdbcType="DOUBLE" property="open" />
     <result column="close" jdbcType="DOUBLE" property="close" />
     <result column="high" jdbcType="DOUBLE" property="high" />
@@ -33,15 +33,15 @@
   </delete>
   <insert id="insert" parameterType="com.ls.stockforecast.entity.model.base.stockforecast.StockQuote">
     insert into sf_stock_quote (id, scode, mktcode, 
-      date, open, close, 
-      high, low, volume, macd, 
-      diff, dea, create_time, 
-      update_time)
+      date, open, close, high, 
+      low, volume, macd, diff, 
+      dea, create_time, update_time
+      )
     values (#{id,jdbcType=INTEGER}, #{scode,jdbcType=VARCHAR}, #{mktcode,jdbcType=VARCHAR}, 
-      #{date,jdbcType=TIMESTAMP}, #{open,jdbcType=DOUBLE}, #{close,jdbcType=DOUBLE}, 
-      #{high,jdbcType=DOUBLE}, #{low,jdbcType=DOUBLE}, #{volume,jdbcType=BIGINT}, #{macd,jdbcType=DOUBLE}, 
-      #{diff,jdbcType=DOUBLE}, #{dea,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{date,jdbcType=INTEGER}, #{open,jdbcType=DOUBLE}, #{close,jdbcType=DOUBLE}, #{high,jdbcType=DOUBLE}, 
+      #{low,jdbcType=DOUBLE}, #{volume,jdbcType=BIGINT}, #{macd,jdbcType=DOUBLE}, #{diff,jdbcType=DOUBLE}, 
+      #{dea,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ls.stockforecast.entity.model.base.stockforecast.StockQuote">
     insert into sf_stock_quote
@@ -100,7 +100,7 @@
         #{mktcode,jdbcType=VARCHAR},
       </if>
       <if test="date != null">
-        #{date,jdbcType=TIMESTAMP},
+        #{date,jdbcType=INTEGER},
       </if>
       <if test="open != null">
         #{open,jdbcType=DOUBLE},
@@ -144,7 +144,7 @@
         mktcode = #{mktcode,jdbcType=VARCHAR},
       </if>
       <if test="date != null">
-        date = #{date,jdbcType=TIMESTAMP},
+        date = #{date,jdbcType=INTEGER},
       </if>
       <if test="open != null">
         open = #{open,jdbcType=DOUBLE},
@@ -183,7 +183,7 @@
     update sf_stock_quote
     set scode = #{scode,jdbcType=VARCHAR},
       mktcode = #{mktcode,jdbcType=VARCHAR},
-      date = #{date,jdbcType=TIMESTAMP},
+      date = #{date,jdbcType=INTEGER},
       open = #{open,jdbcType=DOUBLE},
       close = #{close,jdbcType=DOUBLE},
       high = #{high,jdbcType=DOUBLE},

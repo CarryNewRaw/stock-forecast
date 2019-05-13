@@ -9,7 +9,7 @@ public class StockQuote {
 
     private String mktcode;
 
-    private Date date;
+    private Integer date;
 
     private Double open;
 
@@ -55,11 +55,11 @@ public class StockQuote {
         this.mktcode = mktcode == null ? null : mktcode.trim();
     }
 
-    public Date getDate() {
+    public Integer getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Integer date) {
         this.date = date;
     }
 
