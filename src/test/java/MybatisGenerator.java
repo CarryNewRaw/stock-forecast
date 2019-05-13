@@ -52,13 +52,8 @@ public class MybatisGenerator {
         generate("/generator/generatorConfig.xml");
     }
 
-    public static void generateRealtime() throws Exception {
-        generate("/generator/generatorRealtimeConfig.xml");
-    }
-
     public static void main(String[] args) throws Exception {
 //        MybatisGenerator.generate("/generator/generatorConfig.xml");
-//        MybatisGenerator.generateBase();
-        MybatisGenerator.generateRealtime();
+        MybatisGenerator.generateBase();
     }
 }

@@ -14,6 +14,10 @@ spring:
 debug:
   true
 
+feign:
+  stock-forecast:
+    sina-url: http://money.finance.sina.com.cn
+    tecent-url: http://data.gtimg.cn
 #redis:
 ##格式：redis://:[密码]@[服务器地址]:[端口]/[db index]
 #  uri: redis://:12345@127.0.0.1:6379/0

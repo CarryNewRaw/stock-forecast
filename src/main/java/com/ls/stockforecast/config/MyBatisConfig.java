@@ -38,7 +38,7 @@ public class MyBatisConfig {
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            bean.setMapperLocations(resolver.getResources("classpath*:com/sj/officialaccount/entity/mapper/base/*/*.xml"));
+            bean.setMapperLocations(resolver.getResources("classpath*:com/ls/stockforecast/entity/mapper/base/*/*.xml"));
             return bean.getObject();
         } catch (Exception e) {
             e.printStackTrace();

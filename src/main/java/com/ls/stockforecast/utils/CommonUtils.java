@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServletRequest;
 import java.beans.PropertyDescriptor;
 import java.util.*;
 
@@ -152,86 +151,6 @@ public class CommonUtils {
 
     public static boolean isJsonNotEmpty(String json) {
         return StringUtils.isNotEmpty(json) && !"{}".equals(json);
-    }
-
-    /**
-     * 根据list里的vehicle_id，加上license_color和license_card
-     * @param vehicleList
-     */
-    public static void setLicenseCardAndColor(List<Map<String, Object>> vehicleList) {
-        setLicenseCardAndColor(vehicleList, false);
-    }
-
-    /**
-     * 根据list里的vehicle_id，加上license_color和license_card（license_color是中文）
-     * @param vehicleList
-     */
-    public static void setLicenseCardAndColor(List<Map<String, Object>> vehicleList, boolean chn) {
-        for(Map<String, Object> vehicleMap : vehicleList) {
-            try {
-                String[] vehicleInfo = CodeCreateUtil.getVehicleCodeAndColor((String) vehicleMap.get("vehicle_id"));
-                if (vehicleInfo != null) {
-                    vehicleMap.put("license_card", vehicleInfo[0]);
-                    if(chn) {
-                        vehicleMap.put("license_color", CacheUtils.getEnumText(SysConstant.COMMON_MODULE, SysConstant.VEHICLE_COLOR, vehicleInfo[1]));
-                    } else {
-                        vehicleMap.put("license_color", Integer.parseInt(vehicleInfo[1]));
-                    }
-                }
-            } catch (Exception e) {
-                LOGGER.error("", e);
-            }
-        }
-    }
-
-    /**
-     * 把list中的颜色转成中文
-     * @param vehicleList
-     */
-    public static void setLicenseColorCHN(List<Map<String, Object>> vehicleList) {
-        for(Map<String, Object> vehicleMap : vehicleList) {
-            try {
-                String color = String.valueOf(vehicleMap.get("license_color"));
-                vehicleMap.put("license_color", CacheUtils.getEnumText(SysConstant.COMMON_MODULE, SysConstant.VEHICLE_COLOR, color));
-            } catch (Exception e) {
-                LOGGER.error("", e);
-            }
-        }
-    }
-
-    public static void putErrorInfo(String errorInfo, int errorLine, List<Map<String, Object>> errorList) {
-        if(errorList!=null && errorList.size()<=30) {  // 错误只记录前30条
-            Map<String, Object> errorMap = new HashMap<>();
-            errorMap.put("error_info", errorInfo);
-            errorMap.put("error_line", errorLine);
-            errorList.add(errorMap);
-        }
-    }
-
-    /**
-     * 隐藏list中的手机号中间4位
-     * @param list
-     * @return
-     */
-    public static void hideTelephone(List<Map> list, String phoneField) {
-        if(isNotEmpty(list)) {  // 电话中间四位隐藏 159****1494
-            for(Map map : list) {
-                map.put(phoneField, hideTelephone((String) map.get(phoneField)));
-            }
-        }
-    }
-    public static String hideTelephone(String telephone) {
-        String resultPhone = null;
-        if(StringUtils.isNotEmpty(telephone) && telephone.length()>7) {
-            resultPhone = telephone.substring(0, 3);
-            for(int i=0;i<telephone.length()-7;i++) {   // 如果手机号不规范，只要大于7位，也只显示前三位和后四位
-                resultPhone += "*";
-            }
-            resultPhone += telephone.substring(telephone.length()-4);
-        } else {
-            resultPhone = telephone;
-        }
-        return resultPhone;
     }
 
     public static void deleteMapField(List<Map> list, String[] fields) {

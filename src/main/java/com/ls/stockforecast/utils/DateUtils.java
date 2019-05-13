@@ -42,7 +42,6 @@ public class DateUtils {
 
     public static String getDateStr(Date date, String format) {
         SimpleDateFormat ft = new SimpleDateFormat(format);
-        ft.setTimeZone(TimeZone.getTimeZone("UTC"));
         return ft.format(date);
     }
 
