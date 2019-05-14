@@ -6,6 +6,9 @@ import com.ls.stockforecast.service.stockforecast.StockQuoteService;
 import com.ls.stockforecast.utils.DateUtils;
 import com.ls.stockforecast.utils.constant.ErrorCode;
 import com.ls.stockforecast.web.controller.BaseController;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,16 +22,19 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 public class StockForecastController extends BaseController {
+    private static Logger logger = LoggerFactory.getLogger(StockForecastController.class);
     @Autowired
     private StockQuoteService stockQuoteService;
 
     @PostMapping(value = "/quote")
     public ResponseEntity insertQuote(@RequestBody JsonNode param, HttpServletRequest request) {
-        String scode = param.get("scode")==null?"":param.get("scode").asText();
-        String date = param.get("date")==null?"":param.get("date").asText();
+        String date = param.get("date")==null?null:param.get("date").asText();
         if(DateUtils.getFormatDate(date, DateUtils.DATE_PATTERN_)==null)
             return handleResult(new ErrorBody(ErrorCode.ERROR_400, "参数错误"));
-        stockQuoteService.insertDailyQuote();
+        String error = stockQuoteService.insertDailyQuote(date);
+        if(StringUtils.isNotEmpty(error)) {
+            logger.error(error);
+        }
         return handleResult();
     }
 }

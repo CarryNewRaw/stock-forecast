@@ -20,6 +20,11 @@ public class DateUtils {
     public static final String DATE_PATTERN_OPEN_API = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
 
+    public static String getCurrentTime(){
+        SimpleDateFormat ft = new SimpleDateFormat(DATE_TIME_PATTERN);
+        return ft.format(new Date());
+    }
+
     public static String getCurrentDate(){
         SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
         return ft.format(new Date());

@@ -19,7 +19,7 @@ public class StockQuote {
 
     private Double low;
 
-    private Long volume;
+    private Double volume;
 
     private Double macd;
 
@@ -95,11 +95,11 @@ public class StockQuote {
         this.low = low;
     }
 
-    public Long getVolume() {
+    public Double getVolume() {
         return volume;
     }
 
-    public void setVolume(Long volume) {
+    public void setVolume(Double volume) {
         this.volume = volume;
     }
 

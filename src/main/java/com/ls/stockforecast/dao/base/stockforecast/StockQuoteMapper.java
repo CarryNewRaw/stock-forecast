@@ -14,4 +14,6 @@ public interface StockQuoteMapper {
     int updateByPrimaryKeySelective(StockQuote record);
 
     int updateByPrimaryKey(StockQuote record);
+
+    int deleteByDate(Integer date);
 }

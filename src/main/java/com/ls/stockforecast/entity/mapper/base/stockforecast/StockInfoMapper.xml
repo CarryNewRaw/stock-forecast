@@ -25,10 +25,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.ls.stockforecast.entity.model.base.stockforecast.StockInfo">
-    insert into sf_stock_info (id, scode, mktcode, 
+    insert into sf_stock_info (id, scode, mktcode,
       sname, date, memo, 
       create_time, update_time)
-    values (#{id,jdbcType=INTEGER}, #{scode,jdbcType=VARCHAR}, #{mktcode,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{scode,jdbcType=VARCHAR}, #{mktcode,jdbcType=VARCHAR},
       #{sname,jdbcType=VARCHAR}, #{date,jdbcType=INTEGER}, #{memo,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -126,7 +126,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectAll" resultMap="BaseResultMap">
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from sf_stock_info

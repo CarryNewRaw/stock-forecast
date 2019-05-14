@@ -12,7 +12,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 public interface StockForecastClient {
 
     @RequestLine("GET flashdata/hushen/daily/{year}/{mktcode}{scode}.js")
-    String getTecentStockQuote(@Param("year") String year, @Param("scode") String scode, @Param("mktcode") String mktcode);
+    String getTecentStockQuote(@Param("scode") String scode, @Param("mktcode") String mktcode, @Param("year") String year);
 
     @RequestLine("GET flashdata/hushen/latest/daily/{mktcode}{scode}.js")
     String getTecentStockQuoteDaily(@Param("scode") String scode, @Param("mktcode") String mktcode);

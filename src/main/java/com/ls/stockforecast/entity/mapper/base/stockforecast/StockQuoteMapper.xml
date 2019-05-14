@@ -10,7 +10,7 @@
     <result column="close" jdbcType="DOUBLE" property="close" />
     <result column="high" jdbcType="DOUBLE" property="high" />
     <result column="low" jdbcType="DOUBLE" property="low" />
-    <result column="volume" jdbcType="BIGINT" property="volume" />
+    <result column="volume" jdbcType="DOUBLE" property="volume" />
     <result column="macd" jdbcType="DOUBLE" property="macd" />
     <result column="diff" jdbcType="DOUBLE" property="diff" />
     <result column="dea" jdbcType="DOUBLE" property="dea" />
@@ -32,14 +32,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.ls.stockforecast.entity.model.base.stockforecast.StockQuote">
-    insert into sf_stock_quote (id, scode, mktcode, 
+    insert into sf_stock_quote (id, scode, mktcode,
       date, open, close, high, 
       low, volume, macd, diff, 
       dea, create_time, update_time
       )
-    values (#{id,jdbcType=INTEGER}, #{scode,jdbcType=VARCHAR}, #{mktcode,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{scode,jdbcType=VARCHAR}, #{mktcode,jdbcType=VARCHAR},
       #{date,jdbcType=INTEGER}, #{open,jdbcType=DOUBLE}, #{close,jdbcType=DOUBLE}, #{high,jdbcType=DOUBLE}, 
-      #{low,jdbcType=DOUBLE}, #{volume,jdbcType=BIGINT}, #{macd,jdbcType=DOUBLE}, #{diff,jdbcType=DOUBLE}, 
+      #{low,jdbcType=DOUBLE}, #{volume,jdbcType=DOUBLE}, #{macd,jdbcType=DOUBLE}, #{diff,jdbcType=DOUBLE}, 
       #{dea,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -115,7 +115,7 @@
         #{low,jdbcType=DOUBLE},
       </if>
       <if test="volume != null">
-        #{volume,jdbcType=BIGINT},
+        #{volume,jdbcType=DOUBLE},
       </if>
       <if test="macd != null">
         #{macd,jdbcType=DOUBLE},
@@ -159,7 +159,7 @@
         low = #{low,jdbcType=DOUBLE},
       </if>
       <if test="volume != null">
-        volume = #{volume,jdbcType=BIGINT},
+        volume = #{volume,jdbcType=DOUBLE},
       </if>
       <if test="macd != null">
         macd = #{macd,jdbcType=DOUBLE},
@@ -188,7 +188,7 @@
       close = #{close,jdbcType=DOUBLE},
       high = #{high,jdbcType=DOUBLE},
       low = #{low,jdbcType=DOUBLE},
-      volume = #{volume,jdbcType=BIGINT},
+      volume = #{volume,jdbcType=DOUBLE},
       macd = #{macd,jdbcType=DOUBLE},
       diff = #{diff,jdbcType=DOUBLE},
       dea = #{dea,jdbcType=DOUBLE},
@@ -196,4 +196,8 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <delete id="deleteByDate" parameterType="java.lang.Integer">
+    delete from sf_stock_quote where date = #{date,jdbcType=INTEGER}
+  </delete>
 </mapper>

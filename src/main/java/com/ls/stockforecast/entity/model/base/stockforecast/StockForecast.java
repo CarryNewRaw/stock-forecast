@@ -9,6 +9,8 @@ public class StockForecast {
 
     private Integer mktcode;
 
+    private Integer date;
+
     private Integer rank;
 
     private Date createTime;
@@ -37,6 +39,14 @@ public class StockForecast {
 
     public void setMktcode(Integer mktcode) {
         this.mktcode = mktcode;
+    }
+
+    public Integer getDate() {
+        return date;
+    }
+
+    public void setDate(Integer date) {
+        this.date = date;
     }
 
     public Integer getRank() {
