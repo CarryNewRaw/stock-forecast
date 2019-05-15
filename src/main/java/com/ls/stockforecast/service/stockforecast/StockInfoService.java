@@ -17,4 +17,8 @@ public class StockInfoService {
     public List<StockInfo> selectAll() {
         return stockInfoMapper.selectAll();
     }
+
+    public StockInfo selectByScode(String scode) {
+        return stockInfoMapper.selectByScode(scode);
+    }
 }

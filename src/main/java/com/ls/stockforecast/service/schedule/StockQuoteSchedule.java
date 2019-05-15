@@ -1,7 +1,7 @@
 package com.ls.stockforecast.service.schedule;
 
-import com.ls.stockforecast.feignclient.StockForecastClient;
-import com.ls.stockforecast.service.stockforecast.StockInfoService;
+import com.ls.stockforecast.service.stockforecast.StockQuoteService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +19,16 @@ public class StockQuoteSchedule {
     private static Logger logger = LoggerFactory.getLogger(StockQuoteSchedule.class);
 
     @Autowired
-    private StockInfoService stockInfoService;
-    @Autowired
-    private StockForecastClient stockForecastClient;
+    private StockQuoteService stockQuoteService;
 
     /**
      * 行情入库
      */
     @Scheduled(cron = "0 0 1 * * ?")
     public void dailyQuoteInsertSchedule() {
-
+        String error = stockQuoteService.insertQuoteByDate(null);
+        if(StringUtils.isNotEmpty(error))
+            logger.info(error);
     }
 
 }

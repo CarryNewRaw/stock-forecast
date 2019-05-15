@@ -16,6 +16,7 @@ public class DateUtils {
     public static final String DATE_PATTERN = "yyyy-MM-dd";
     public static final String DATE_PATTERN_ = "yyyyMMdd";
     public static final String DATE_MONTH = "mm";
+    public static final String DATE_YEAR = "yyyy";
 
     public static final String DATE_PATTERN_OPEN_API = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 

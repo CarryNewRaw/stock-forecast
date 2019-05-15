@@ -11,8 +11,6 @@ public class StockInfo {
 
     private String sname;
 
-    private Integer date;
-
     private String memo;
 
     private Date createTime;
@@ -49,14 +47,6 @@ public class StockInfo {
 
     public void setSname(String sname) {
         this.sname = sname == null ? null : sname.trim();
-    }
-
-    public Integer getDate() {
-        return date;
-    }
-
-    public void setDate(Integer date) {
-        this.date = date;
     }
 
     public String getMemo() {

@@ -46,7 +46,7 @@
         </javaClientGenerator>
 
         <!--生成对应表及类名，可以有多个table-->
-        <table tableName="sf_stock_quote" domainObjectName="StockQuote" enableCountByExample="false" enableUpdateByExample="false"
+        <table tableName="sf_stock_info" domainObjectName="StockInfo" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
     </context>
 

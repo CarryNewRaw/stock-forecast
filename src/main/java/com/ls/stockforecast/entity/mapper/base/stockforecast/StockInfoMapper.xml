@@ -6,13 +6,12 @@
     <result column="scode" jdbcType="VARCHAR" property="scode" />
     <result column="mktcode" jdbcType="VARCHAR" property="mktcode" />
     <result column="sname" jdbcType="VARCHAR" property="sname" />
-    <result column="date" jdbcType="INTEGER" property="date" />
     <result column="memo" jdbcType="VARCHAR" property="memo" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, scode, mktcode, sname, date, memo, create_time, update_time
+    id, scode, mktcode, sname, memo, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -25,12 +24,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.ls.stockforecast.entity.model.base.stockforecast.StockInfo">
-    insert into sf_stock_info (id, scode, mktcode,
-      sname, date, memo, 
-      create_time, update_time)
-    values (#{id,jdbcType=INTEGER}, #{scode,jdbcType=VARCHAR}, #{mktcode,jdbcType=VARCHAR},
-      #{sname,jdbcType=VARCHAR}, #{date,jdbcType=INTEGER}, #{memo,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    insert into sf_stock_info (id, scode, mktcode, 
+      sname, memo, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{scode,jdbcType=VARCHAR}, #{mktcode,jdbcType=VARCHAR}, 
+      #{sname,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.ls.stockforecast.entity.model.base.stockforecast.StockInfo">
     insert into sf_stock_info
@@ -46,9 +45,6 @@
       </if>
       <if test="sname != null">
         sname,
-      </if>
-      <if test="date != null">
-        date,
       </if>
       <if test="memo != null">
         memo,
@@ -73,9 +69,6 @@
       <if test="sname != null">
         #{sname,jdbcType=VARCHAR},
       </if>
-      <if test="date != null">
-        #{date,jdbcType=INTEGER},
-      </if>
       <if test="memo != null">
         #{memo,jdbcType=VARCHAR},
       </if>
@@ -99,9 +92,6 @@
       <if test="sname != null">
         sname = #{sname,jdbcType=VARCHAR},
       </if>
-      <if test="date != null">
-        date = #{date,jdbcType=INTEGER},
-      </if>
       <if test="memo != null">
         memo = #{memo,jdbcType=VARCHAR},
       </if>
@@ -119,16 +109,22 @@
     set scode = #{scode,jdbcType=VARCHAR},
       mktcode = #{mktcode,jdbcType=VARCHAR},
       sname = #{sname,jdbcType=VARCHAR},
-      date = #{date,jdbcType=INTEGER},
       memo = #{memo,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from sf_stock_info
+  </select>
+
+  <select id="selectByScode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sf_stock_info
+    where scode = #{scode,jdbcType=VARCHAR}
   </select>
 </mapper>

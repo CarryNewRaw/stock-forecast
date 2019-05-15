@@ -200,4 +200,8 @@
   <delete id="deleteByDate" parameterType="java.lang.Integer">
     delete from sf_stock_quote where date = #{date,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteByScodeAndYear">
+    delete from sf_stock_quote where scode = #{scode,jdbcType=VARCHAR} and mktcode = #{mktcode,jdbcType=VARCHAR} and date like concat(#{year},'%')
+  </delete>
 </mapper>
