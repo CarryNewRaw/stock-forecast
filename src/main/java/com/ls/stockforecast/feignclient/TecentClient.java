@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author sheng.li
  * @date 2019/5/13
  */
-@FeignClient(value = "stockForecastClient", url = "${feign.stock-forecast.tecent-url}")
+@FeignClient(value = "tecentClient", url = "${feign.stock-forecast.tecent-url}")
 public interface TecentClient {
 
     @RequestLine("GET flashdata/hushen/daily/{year}/{mktcode}{scode}.js")

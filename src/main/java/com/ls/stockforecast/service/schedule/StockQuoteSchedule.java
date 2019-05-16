@@ -1,6 +1,6 @@
 package com.ls.stockforecast.service.schedule;
 
-import com.ls.stockforecast.service.stockforecast.StockQuoteService;
+import com.ls.stockforecast.service.stockforecast.TecentQuoteService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,14 +19,14 @@ public class StockQuoteSchedule {
     private static Logger logger = LoggerFactory.getLogger(StockQuoteSchedule.class);
 
     @Autowired
-    private StockQuoteService stockQuoteService;
+    private TecentQuoteService tecentQuoteService;
 
     /**
      * 行情入库
      */
     @Scheduled(cron = "0 0 1 * * ?")
     public void dailyQuoteInsertSchedule() {
-        String error = stockQuoteService.insertQuoteByDate(null);
+        String error = tecentQuoteService.insertQuoteByDate(null);
         if(StringUtils.isNotEmpty(error))
             logger.info(error);
     }
