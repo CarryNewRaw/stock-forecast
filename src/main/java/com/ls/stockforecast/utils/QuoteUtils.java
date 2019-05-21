@@ -1,4 +1,4 @@
-package com.ls.stockforecast.service.utils;
+package com.ls.stockforecast.utils;
 
 import com.ls.stockforecast.feignclient.TecentClient;
 import com.ls.stockforecast.feignclient.XueqiuClient;
