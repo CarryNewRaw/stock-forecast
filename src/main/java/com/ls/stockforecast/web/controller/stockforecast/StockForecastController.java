@@ -36,7 +36,7 @@ public class StockForecastController extends BaseController {
     private TecentQuoteService tecentQuoteService;
 
     @PostMapping(value = "/quote")
-    public ResponseEntity insertQuote(@RequestBody JsonNode param, HttpServletRequest request) {
+    public ResponseEntity insertTecentQuote(@RequestBody JsonNode param, HttpServletRequest request) {
         String type = param.get("type")==null?null:param.get("type").asText();
         if(!"date".equals(type) && !"scode".equals(type)) {
             return handleResult(new ErrorBody(ErrorCode.ERROR_400, "参数错误"));
