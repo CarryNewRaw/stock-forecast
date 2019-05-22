@@ -53,6 +53,7 @@ public class XueqiuQuoteService extends StockQuoteService {
         try {
             String xueqiuResult = "";
             Calendar calendar = Calendar.getInstance();
+            calendar.setTime(DateUtils.getFormatDate(year+"1231", DateUtils.DATE_PATTERN_));
             long end = calendar.getTime().getTime();
             calendar.setTime(DateUtils.getFormatDate(year+"0101", DateUtils.DATE_PATTERN_));
             long begin = calendar.getTime().getTime();

@@ -80,6 +80,8 @@ public abstract class StockQuoteService {
                 stockQuoteMapper.insert(quote);
                 logger.debug("日期：" + quote.getDate() + " 代码：" + scode + "行情数据插入  " + DateUtils.getCurrentTime());
             }
+        } else {
+            logger.debug("**********************" + scode + "  year=" + year + "行情数据为空  " + DateUtils.getCurrentTime());
         }
         logger.debug("**********************" + scode + "  year=" + year + "行情数据插入结束  " + DateUtils.getCurrentTime());
         return null;

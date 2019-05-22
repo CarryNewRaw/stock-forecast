@@ -74,8 +74,8 @@ public class StockForecastController extends BaseController {
         return handleResult();
     }
 
-    @PostMapping(value = "/tecent/all-quote")
-    public ResponseEntity insertAllTecentQuote(@RequestBody JsonNode param, HttpServletRequest request) {
+    @PostMapping(value = "/tecent/year-quote")
+    public ResponseEntity insertYearTecentQuote(@RequestBody JsonNode param, HttpServletRequest request) {
         String year = param.get("year") == null ? null : param.get("year").asText();
         List<StockInfo> stockInfoList = stockInfoService.selectAll();
         for(StockInfo stockInfo : stockInfoList) {
@@ -87,8 +87,8 @@ public class StockForecastController extends BaseController {
         return handleResult();
     }
 
-    @PostMapping(value = "/xueqiu/all-quote")
-    public ResponseEntity insertAllXueqiuQuote(@RequestBody JsonNode param, HttpServletRequest request) {
+    @PostMapping(value = "/xueqiu/year-quote")
+    public ResponseEntity insertYearXueqiuQuote(@RequestBody JsonNode param, HttpServletRequest request) {
         String year = param.get("year") == null ? null : param.get("year").asText();
         List<StockInfo> stockInfoList = stockInfoService.selectAll();
         for(StockInfo stockInfo : stockInfoList) {
@@ -102,6 +102,21 @@ public class StockForecastController extends BaseController {
 //        if (StringUtils.isNotEmpty(error)) {
 //            logger.error(error);
 //        }
+        return handleResult();
+    }
+
+    @PostMapping(value = "/xueqiu/all-quote")
+    public ResponseEntity insertAllXueqiuQuote(@RequestBody JsonNode param, HttpServletRequest request) {
+        String scode = param.get("scode") == null ? null : param.get("scode").asText();
+        StockInfo stockInfo = stockInfoService.selectByScode(scode);
+        if(stockInfo==null) return handleResult(new ErrorBody(ErrorCode.ERROR_400, "股票代码错误"));
+        int endYear = Integer.parseInt(DateUtils.getFormatDateStr(new Date(), DateUtils.DATE_YEAR));
+        for(int i=endYear;i>=STARTYEAR;i--) {
+            String error = xueqiuQuoteService.insertQuoteByScodeAndYear(stockInfo.getScode(), stockInfo.getMktcode(), i+"");
+            if (StringUtils.isNotEmpty(error)) {
+                logger.error(error);
+            }
+        }
         return handleResult();
     }
 }
