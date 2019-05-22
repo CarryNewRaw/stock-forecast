@@ -5,6 +5,7 @@ import com.ls.stockforecast.core.web.response.ErrorBody;
 import com.ls.stockforecast.entity.model.base.stockforecast.StockInfo;
 import com.ls.stockforecast.service.stockforecast.StockInfoService;
 import com.ls.stockforecast.service.stockforecast.TecentQuoteService;
+import com.ls.stockforecast.service.stockforecast.XueqiuQuoteService;
 import com.ls.stockforecast.utils.DateUtils;
 import com.ls.stockforecast.utils.constant.ErrorCode;
 import com.ls.stockforecast.web.controller.BaseController;
@@ -34,8 +35,10 @@ public class StockForecastController extends BaseController {
     private StockInfoService stockInfoService;
     @Autowired
     private TecentQuoteService tecentQuoteService;
+    @Autowired
+    private XueqiuQuoteService xueqiuQuoteService;
 
-    @PostMapping(value = "/quote")
+    @PostMapping(value = "/tecent/quote")
     public ResponseEntity insertTecentQuote(@RequestBody JsonNode param, HttpServletRequest request) {
         String type = param.get("type")==null?null:param.get("type").asText();
         if(!"date".equals(type) && !"scode".equals(type)) {
@@ -71,8 +74,8 @@ public class StockForecastController extends BaseController {
         return handleResult();
     }
 
-    @PostMapping(value = "/all-quote")
-    public ResponseEntity insertAllQuote(@RequestBody JsonNode param, HttpServletRequest request) {
+    @PostMapping(value = "/tecent/all-quote")
+    public ResponseEntity insertAllTecentQuote(@RequestBody JsonNode param, HttpServletRequest request) {
         String year = param.get("year") == null ? null : param.get("year").asText();
         List<StockInfo> stockInfoList = stockInfoService.selectAll();
         for(StockInfo stockInfo : stockInfoList) {
@@ -81,6 +84,24 @@ public class StockForecastController extends BaseController {
                 logger.error(error);
             }
         }
+        return handleResult();
+    }
+
+    @PostMapping(value = "/xueqiu/all-quote")
+    public ResponseEntity insertAllXueqiuQuote(@RequestBody JsonNode param, HttpServletRequest request) {
+        String year = param.get("year") == null ? null : param.get("year").asText();
+        List<StockInfo> stockInfoList = stockInfoService.selectAll();
+        for(StockInfo stockInfo : stockInfoList) {
+            String error = xueqiuQuoteService.insertQuoteByScodeAndYear(stockInfo.getScode(), stockInfo.getMktcode(), year);
+            if (StringUtils.isNotEmpty(error)) {
+                logger.error(error);
+            }
+        }
+        // test
+//        String error = xueqiuQuoteService.insertQuoteByScodeAndYear("600000", "sh", year);
+//        if (StringUtils.isNotEmpty(error)) {
+//            logger.error(error);
+//        }
         return handleResult();
     }
 }

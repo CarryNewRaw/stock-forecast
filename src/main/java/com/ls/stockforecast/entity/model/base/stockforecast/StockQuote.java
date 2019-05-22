@@ -27,6 +27,14 @@ public class StockQuote {
 
     private Double dea;
 
+    private Double ma5;
+
+    private Double ma10;
+
+    private Double ma20;
+
+    private Double ma30;
+
     private Date createTime;
 
     private Date updateTime;
@@ -125,6 +133,38 @@ public class StockQuote {
 
     public void setDea(Double dea) {
         this.dea = dea;
+    }
+
+    public Double getMa5() {
+        return ma5;
+    }
+
+    public void setMa5(Double ma5) {
+        this.ma5 = ma5;
+    }
+
+    public Double getMa10() {
+        return ma10;
+    }
+
+    public void setMa10(Double ma10) {
+        this.ma10 = ma10;
+    }
+
+    public Double getMa20() {
+        return ma20;
+    }
+
+    public void setMa20(Double ma20) {
+        this.ma20 = ma20;
+    }
+
+    public Double getMa30() {
+        return ma30;
+    }
+
+    public void setMa30(Double ma30) {
+        this.ma30 = ma30;
     }
 
     public Date getCreateTime() {

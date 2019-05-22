@@ -4,7 +4,6 @@ import com.ls.stockforecast.dao.base.stockforecast.StockInfoMapper;
 import com.ls.stockforecast.dao.base.stockforecast.StockQuoteMapper;
 import com.ls.stockforecast.entity.model.base.stockforecast.StockInfo;
 import com.ls.stockforecast.entity.model.base.stockforecast.StockQuote;
-import com.ls.stockforecast.feignclient.TecentClient;
 import com.ls.stockforecast.utils.CommonUtils;
 import com.ls.stockforecast.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -13,10 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public abstract class StockQuoteService {
@@ -27,9 +26,9 @@ public abstract class StockQuoteService {
     @Autowired
     protected StockInfoMapper stockInfoMapper;
 
-    abstract public String[] getStockQuote(String scode, String mktcode, String date);
+    abstract public StockQuote getStockQuote(String scode, String mktcode, String date);
 
-    abstract public List<String[]> getStockQuoteYear(String scode, String mktcode, String year);
+    abstract public List<StockQuote> getStockQuoteYear(String scode, String mktcode, String year);
 
     public String insertQuoteByDate(String date) {
         logger.info("**********************" + date + "行情数据插入开始  " + DateUtils.getCurrentTime());
@@ -52,18 +51,8 @@ public abstract class StockQuoteService {
                 String scode = stockInfo.getScode();
                 String mktcode = stockInfo.getMktcode();
                 try {
-                    String[] data = this.getStockQuote(scode, mktcode, date);
-                    if (data != null) {
-                        StockQuote quote = new StockQuote();
-                        quote.setScode(scode);
-                        quote.setMktcode(mktcode);
-                        quote.setDate(Integer.parseInt(date));
-                        quote.setOpen(Double.parseDouble(data[1]));
-                        quote.setClose(Double.parseDouble(data[2]));
-                        quote.setHigh(Double.parseDouble(data[3]));
-                        quote.setLow(Double.parseDouble(data[4]));
-                        quote.setVolume(Double.parseDouble(data[5]));
-                        quote.setCreateTime(new Date());
+                    StockQuote quote = this.getStockQuote(scode, mktcode, date);
+                    if (quote != null) {
                         stockQuoteMapper.insert(quote);
                         logger.debug("日期：" + date + " 代码：" + scode + "行情数据插入  " + DateUtils.getCurrentTime());
                     }
@@ -84,21 +73,12 @@ public abstract class StockQuoteService {
         int deleteCount = stockQuoteMapper.deleteByScodeAndYear(scode, mktcode, year);
         logger.debug("删除原有行情数量：" + deleteCount);
         // 2. 获取行情
-        List<String[]> quoteList = getStockQuoteYear(scode, mktcode, year);
+        List<StockQuote> quoteList = getStockQuoteYear(scode, mktcode, year);
         if(CommonUtils.isNotEmpty(quoteList)) {
-            for(String[] data : quoteList) {
-                StockQuote quote = new StockQuote();
-                quote.setScode(scode);
-                quote.setMktcode(mktcode);
-                quote.setDate(Integer.parseInt(year.substring(0,2) + data[0]));
-                quote.setOpen(Double.parseDouble(data[1]));
-                quote.setClose(Double.parseDouble(data[2]));
-                quote.setHigh(Double.parseDouble(data[3]));
-                quote.setLow(Double.parseDouble(data[4]));
-                quote.setVolume(Double.parseDouble(data[5]));
-                quote.setCreateTime(new Date());
+            for(StockQuote quote : quoteList) {
+                if(quote==null) continue;
                 stockQuoteMapper.insert(quote);
-                logger.debug("日期：" + year.substring(0,2) + data[0] + " 代码：" + scode + "行情数据插入  " + DateUtils.getCurrentTime());
+                logger.debug("日期：" + quote.getDate() + " 代码：" + scode + "行情数据插入  " + DateUtils.getCurrentTime());
             }
         }
         logger.debug("**********************" + scode + "  year=" + year + "行情数据插入结束  " + DateUtils.getCurrentTime());

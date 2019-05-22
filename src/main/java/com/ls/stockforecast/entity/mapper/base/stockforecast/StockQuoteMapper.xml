@@ -14,12 +14,16 @@
     <result column="macd" jdbcType="DOUBLE" property="macd" />
     <result column="diff" jdbcType="DOUBLE" property="diff" />
     <result column="dea" jdbcType="DOUBLE" property="dea" />
+    <result column="ma5" jdbcType="DOUBLE" property="ma5" />
+    <result column="ma10" jdbcType="DOUBLE" property="ma10" />
+    <result column="ma20" jdbcType="DOUBLE" property="ma20" />
+    <result column="ma30" jdbcType="DOUBLE" property="ma30" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, scode, mktcode, date, open, close, high, low, volume, macd, diff, dea, create_time, 
-    update_time
+    id, scode, mktcode, date, open, close, high, low, volume, macd, diff, dea, ma5, ma10, 
+    ma20, ma30, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -32,15 +36,17 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.ls.stockforecast.entity.model.base.stockforecast.StockQuote">
-    insert into sf_stock_quote (id, scode, mktcode,
+    insert into sf_stock_quote (id, scode, mktcode, 
       date, open, close, high, 
       low, volume, macd, diff, 
-      dea, create_time, update_time
+      dea, ma5, ma10, ma20, 
+      ma30, create_time, update_time
       )
-    values (#{id,jdbcType=INTEGER}, #{scode,jdbcType=VARCHAR}, #{mktcode,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, #{scode,jdbcType=VARCHAR}, #{mktcode,jdbcType=VARCHAR}, 
       #{date,jdbcType=INTEGER}, #{open,jdbcType=DOUBLE}, #{close,jdbcType=DOUBLE}, #{high,jdbcType=DOUBLE}, 
       #{low,jdbcType=DOUBLE}, #{volume,jdbcType=DOUBLE}, #{macd,jdbcType=DOUBLE}, #{diff,jdbcType=DOUBLE}, 
-      #{dea,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      #{dea,jdbcType=DOUBLE}, #{ma5,jdbcType=DOUBLE}, #{ma10,jdbcType=DOUBLE}, #{ma20,jdbcType=DOUBLE}, 
+      #{ma30,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ls.stockforecast.entity.model.base.stockforecast.StockQuote">
@@ -81,6 +87,18 @@
       </if>
       <if test="dea != null">
         dea,
+      </if>
+      <if test="ma5 != null">
+        ma5,
+      </if>
+      <if test="ma10 != null">
+        ma10,
+      </if>
+      <if test="ma20 != null">
+        ma20,
+      </if>
+      <if test="ma30 != null">
+        ma30,
       </if>
       <if test="createTime != null">
         create_time,
@@ -126,6 +144,18 @@
       <if test="dea != null">
         #{dea,jdbcType=DOUBLE},
       </if>
+      <if test="ma5 != null">
+        #{ma5,jdbcType=DOUBLE},
+      </if>
+      <if test="ma10 != null">
+        #{ma10,jdbcType=DOUBLE},
+      </if>
+      <if test="ma20 != null">
+        #{ma20,jdbcType=DOUBLE},
+      </if>
+      <if test="ma30 != null">
+        #{ma30,jdbcType=DOUBLE},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -170,6 +200,18 @@
       <if test="dea != null">
         dea = #{dea,jdbcType=DOUBLE},
       </if>
+      <if test="ma5 != null">
+        ma5 = #{ma5,jdbcType=DOUBLE},
+      </if>
+      <if test="ma10 != null">
+        ma10 = #{ma10,jdbcType=DOUBLE},
+      </if>
+      <if test="ma20 != null">
+        ma20 = #{ma20,jdbcType=DOUBLE},
+      </if>
+      <if test="ma30 != null">
+        ma30 = #{ma30,jdbcType=DOUBLE},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -192,6 +234,10 @@
       macd = #{macd,jdbcType=DOUBLE},
       diff = #{diff,jdbcType=DOUBLE},
       dea = #{dea,jdbcType=DOUBLE},
+      ma5 = #{ma5,jdbcType=DOUBLE},
+      ma10 = #{ma10,jdbcType=DOUBLE},
+      ma20 = #{ma20,jdbcType=DOUBLE},
+      ma30 = #{ma30,jdbcType=DOUBLE},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
